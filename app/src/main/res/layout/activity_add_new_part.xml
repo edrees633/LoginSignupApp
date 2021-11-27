@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNewPart">
+
+    <EditText
+        android:id="@+id/etBrandNameAddPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:ems="10"
+        android:hint="Brand Name"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <EditText
+        android:id="@+id/etSizeAddPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:ems="10"
+        android:hint="Size"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="133dp" />
+
+    <EditText
+        android:id="@+id/etModelYearAddPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:ems="10"
+        android:hint="ModelYear"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="215dp" />
+
+    <Spinner
+        android:id="@+id/etSpinnerAddNewPart"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="311dp" />
+
+    <ImageView
+        android:id="@+id/etivPhotoAddPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="401dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/etButtonAddPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@empty"
+        android:backgroundTint="@color/orange"
+        android:text="Add"
+        tools:layout_editor_absoluteX="166dp"
+        tools:layout_editor_absoluteY="594dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
