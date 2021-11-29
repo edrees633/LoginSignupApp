@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -19,14 +21,21 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.UUID;
+
+import io.grpc.Context;
 
 public class AddNewPart extends AppCompatActivity {
     private EditText etBrand, etAddSize, etAddModelYear;
     private Spinner spPartCategorey;
     private ImageView ivPhoto;
     private FirebaseServices fbs;
+    StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +51,7 @@ public class AddNewPart extends AppCompatActivity {
         ivPhoto = findViewById(R.id.etivPhotoAddPart);
         fbs = FirebaseServices.getInstance();
         spPartCategorey.setAdapter(new ArrayAdapter<psCategory>(this, android.R.layout.simple_spinner_item, psCategory.values()));
+        storageReference = fbs.getStorage().getReference();
     }
     public void add(View view) {
         // check if any field is empty
@@ -62,9 +72,9 @@ public class AddNewPart extends AppCompatActivity {
             return;
         }
 
-        Part rest  = new Part(brand, addsize, modelyear, psCategory.valueOf(category));
-        fbs.getFire().collection("restaurants")
-                .add(rest)
+       Part Addnewpart  = new Part(brand, addsize, modelyear, psCategory.valueOf(category),photo);
+        fbs.getFire().collection("allparts")
+                .add(Addnewpart)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -92,7 +102,11 @@ public class AddNewPart extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     try {
+                        filePath = data.getData();
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                        ivPhoto.setBackground(null);
+                        ivPhoto.setImageBitmap(bitmap);
+                        uploadImage();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -102,7 +116,81 @@ public class AddNewPart extends AppCompatActivity {
             }
         }
     }
-}
+
+    private void uploadImage()
+    {
+        if (filePath != null) {
+
+            // Code for showing progressDialog while uploading
+            ProgressDialog progressDialog
+                    = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            // Defining the child of storageReference
+            StorageReference ref
+                    = storageReference
+                    .child(
+                            "images/"
+                                    + UUID.randomUUID().toString());
+
+            // adding listeners on upload
+            // or failure of image
+            ref.putFile(filePath)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                                @Override
+                                public void onSuccess(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+
+                                    // Image uploaded successfully
+                                    // Dismiss dialog
+                                    progressDialog.dismiss();
+                                    Toast
+                                            .makeText(AddNewPart.this,
+                                                    "Image Uploaded!!",
+                                                    Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            })
+
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+
+                            // Error, Image not uploaded
+                            progressDialog.dismiss();
+                            Toast
+                                    .makeText(AddNewPart.this,
+                                            "Failed " + e.getMessage(),
+                                            Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                                // Progress Listener for loading
+                                // percentage on the dialog box
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    double progress
+                                            = (100.0
+                                            * taskSnapshot.getBytesTransferred()
+                                            / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage(
+                                            "Uploaded "
+                                                    + (int)progress + "%");
+                                }
+                            });
+        }
+    }
+
 
 
 

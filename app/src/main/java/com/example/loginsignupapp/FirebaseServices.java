@@ -1,6 +1,7 @@
 package com.example.loginsignupapp;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -36,6 +37,10 @@ public class FirebaseServices {
         }
 
         return instance;
+    }
+
+    public DocumentReference getFire() {
+        return null;
     }
 }
 
