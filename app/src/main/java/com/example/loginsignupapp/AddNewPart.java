@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,7 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.OnProgressListener;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -30,12 +31,15 @@ import java.util.UUID;
 
 import io.grpc.Context;
 
-public class AddNewPart extends AppCompatActivity {
+public class
+AddNewPart extends AppCompatActivity {
     private EditText etBrand, etAddSize, etAddModelYear;
     private Spinner spPartCategorey;
     private ImageView ivPhoto;
     private FirebaseServices fbs;
+    private Uri filePath;
     StorageReference storageReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,8 @@ public class AddNewPart extends AppCompatActivity {
         conectComponent();
 
     }
-    private void conectComponent(){
+
+    private void conectComponent() {
         etBrand = findViewById(R.id.etBrandNameAddPart);
         etAddSize = findViewById(R.id.etSizeAddPart);
         etAddModelYear = findViewById(R.id.etModelYearAddPart);
@@ -53,11 +58,12 @@ public class AddNewPart extends AppCompatActivity {
         spPartCategorey.setAdapter(new ArrayAdapter<psCategory>(this, android.R.layout.simple_spinner_item, psCategory.values()));
         storageReference = fbs.getStorage().getReference();
     }
+
     public void add(View view) {
         // check if any field is empty
-        String brand,addsize,modelyear ,category, photo;
+        String brand, size, modelyear, category, photo;
         brand = etBrand.getText().toString();
-        addsize = etAddSize.getText().toString();
+        size = etAddSize.getText().toString();
         modelyear = etAddModelYear.getText().toString();
 
         category = spPartCategorey.getSelectedItem().toString();
@@ -65,26 +71,25 @@ public class AddNewPart extends AppCompatActivity {
             photo = "no_image";
         else photo = ivPhoto.getDrawable().toString();
 
-        if (brand.trim().isEmpty() || addsize.trim().isEmpty() || modelyear.trim().isEmpty() ||
-                category.trim().isEmpty() || photo.trim().isEmpty())
-            {
-                Toast.makeText(this," fields are empty", Toast.LENGTH_SHORT).show();
+        if (brand.trim().isEmpty() || size.trim().isEmpty() || modelyear.trim().isEmpty() ||
+                category.trim().isEmpty() || photo.trim().isEmpty()) {
+            Toast.makeText(this, " fields are empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-       Part Addnewpart  = new Part(brand, addsize, modelyear, psCategory.valueOf(category),photo);
-        fbs.getFire().collection("allparts")
-                .add(Addnewpart)
+        Part part = new Part(brand, Integer.parseInt(size), modelyear, psCategory.valueOf(category), photo);
+        fbs.getFirestore().collection("allparts")
+                .add(part)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                        //Log.w(TAG, "Error adding document", e);
                     }
                 });
     }
@@ -93,7 +98,7 @@ public class AddNewPart extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),40);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 40);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -111,12 +116,11 @@ public class AddNewPart extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            } else if (resultCode == Activity.RESULT_CANCELED)  {
+            } else if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
     private void uploadImage()
     {
         if (filePath != null) {
@@ -190,6 +194,7 @@ public class AddNewPart extends AppCompatActivity {
                             });
         }
     }
+
 
 
 
