@@ -6,28 +6,30 @@ enum psCategory
 }
 
 public class Part {
+    private int id;
     private int brand;
     private int size;
     private int modelYear;
     private String photo;
 
-    public Part() {}
 
-    @Override
-    public String toString() {
-        return "partsCategory{" +
-                "brand=" + brand +
-                ", size=" + size +
-                ", modelYear=" + modelYear +
-                ", photo='" + photo + '\'' +
-                '}';
+    public Part(int parseInt1, int i, int parseInt, int anInt, int i1, psCategory psCategory) {
     }
 
-    public Part(int brand, int size, int modelYear, String photo) {
+    public Part(int id, int brand, int size, int modelYear, String photo) {
+        this.id = id;
         this.brand = brand;
         this.size = size;
         this.modelYear = modelYear;
         this.photo = photo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getBrand() {
@@ -39,9 +41,7 @@ public class Part {
     }
 
     public int getSize() {
-
         return size;
-
     }
 
     public void setSize(int size) {
@@ -63,4 +63,16 @@ public class Part {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    @Override
+    public String toString() {
+        return "Part{" +
+                "id=" + id +
+                ", brand=" + brand +
+                ", size=" + size +
+                ", modelYear=" + modelYear +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
+
 }

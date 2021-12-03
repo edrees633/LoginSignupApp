@@ -33,7 +33,7 @@ import io.grpc.Context;
 
 public class
 AddNewPart extends AppCompatActivity {
-    private EditText etBrand, etAddSize, etAddModelYear;
+    private EditText etId, etBrand, etAddSize, etAddModelYear;
     private Spinner spPartCategorey;
     private ImageView ivPhoto;
     private FirebaseServices fbs;
@@ -49,6 +49,7 @@ AddNewPart extends AppCompatActivity {
     }
 
     private void conectComponent() {
+        etId = findViewById(R.id.etIdAddPart);
         etBrand = findViewById(R.id.etBrandNameAddPart);
         etAddSize = findViewById(R.id.etSizeAddPart);
         etAddModelYear = findViewById(R.id.etModelYearAddPart);
@@ -61,7 +62,8 @@ AddNewPart extends AppCompatActivity {
 
     public void add(View view) {
         // check if any field is empty
-        String brand, size, modelyear, category, photo;
+        String id , brand, size, modelyear, category, photo;
+        id = etId.getText().toString();
         brand = etBrand.getText().toString();
         size = etAddSize.getText().toString();
         modelyear = etAddModelYear.getText().toString();
@@ -71,13 +73,13 @@ AddNewPart extends AppCompatActivity {
             photo = "no_image";
         else photo = ivPhoto.getDrawable().toString();
 
-        if (brand.trim().isEmpty() || size.trim().isEmpty() || modelyear.trim().isEmpty() ||
+        if (id.trim().isEmpty()||brand.trim().isEmpty() || size.trim().isEmpty() || modelyear.trim().isEmpty() ||
                 category.trim().isEmpty() || photo.trim().isEmpty()) {
             Toast.makeText(this, " fields are empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Part part = new Part(brand, Integer.parseInt(size), modelyear, psCategory.valueOf(category), photo);
+        Part part = new Part(Integer.parseInt(id) ,Integer.parseInt(brand), Integer.parseInt(size), Integer.parseInt(modelyear), Integer.parseInt(photo),psCategory.valueOf(category));
         fbs.getFirestore().collection("allparts")
                 .add(part)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
