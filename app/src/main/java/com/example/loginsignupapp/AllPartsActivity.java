@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class AllPartsActivity extends AppCompatActivity {
 
 
-        private RecyclerView rvAllRest;
+        private RecyclerView rvAllParts;
         AdapterPart adapter;
         FirebaseServices fbs;
         ArrayList<Part> parts;
@@ -33,7 +33,7 @@ public class AllPartsActivity extends AppCompatActivity {
             readData();
 
             // set up the RecyclerView
-            RecyclerView recyclerView = findViewById(R.id.rvRestsAllParts);
+            RecyclerView recyclerView = findViewById(R.id.rvAllParts);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new AdapterPart(this, parts);
             recyclerView.setAdapter(adapter);
