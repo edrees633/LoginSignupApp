@@ -35,6 +35,7 @@ public class AdapterPart extends RecyclerView.Adapter<AdapterPart.ViewHolder> {
     public void onBindViewHolder(AdapterPart.ViewHolder holder, int position) {
         Part part = mData.get(position);
         holder.tvName.setText(part.getId());
+
         //holder.ivPhoto.setImageDrawable(rest.getPhoto());
     }
 

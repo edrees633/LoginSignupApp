@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/activity_ad.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/activity_add_new_part.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/activity_all_parts.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/activity_image.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/activity_signup.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/row.xml" value="0.2015625" />
         <entry key="..\:/Users/USER/AndroidStudioProjects/LoginSignupApp3.12/app/src/main/res/layout/row_part.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/USER/Desktop/LoginSignupApp/app/src/main/res/layout/activity_add_new_part.xml" value="0.271286231884058" />
         <entry key="..\:/Users/USER/Desktop/LoginSignupApp/app/src/main/res/layout/activity_image.xml" value="0.271286231884058" />
