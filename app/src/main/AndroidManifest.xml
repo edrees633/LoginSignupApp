@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginSignupApp">
         <activity
+            android:name=".PartDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".AllPartsActivity"
             android:exported="true" />
         <activity
