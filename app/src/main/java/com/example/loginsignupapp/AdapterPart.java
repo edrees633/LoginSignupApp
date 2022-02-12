@@ -1,6 +1,7 @@
 package com.example.loginsignupapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +10,34 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class AdapterPart extends RecyclerView.Adapter<AdapterPart.ViewHolder> {
 
     private List<Part> mData;
     private LayoutInflater mInflater;
-    private AdapterPart.ItemClickListener mClickListener;
+    private Context context;
+
+    private final AdapterPart.ItemClickListener mClickListener = new ItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            // get restaurant data
+            Part part = mData.get(position);
+            // upload restaurant data
+            // goto details activity
+            Intent i = new Intent(context, PartDetailsActivity.class);
+            i.putExtra("part", (Serializable)part);
+            context.startActivity(i);
+        }
+    };
+
 
     // data is passed into the constructor
     AdapterPart(Context context, List<Part> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.context = context;
     }
 
     // inflates the row layout from xml when needed
@@ -64,15 +81,17 @@ public class AdapterPart extends RecyclerView.Adapter<AdapterPart.ViewHolder> {
         }
     }
 
+
     // convenience method for getting data at click position
     Part getItem(int id) {
         return mData.get(id);
     }
 
     // allows clicks events to be caught
-    void setClickListener(AdapterPart.ItemClickListener itemClickListener) {
+    /*
+    void setClickListener(AdapterRestaurant.ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
-    }
+    }*/
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
