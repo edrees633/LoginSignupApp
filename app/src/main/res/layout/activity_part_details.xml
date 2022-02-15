@@ -49,31 +49,47 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="385dp"
-        android:layout_height="39dp"
+        android:id="@+id/tvHistoryDetails"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="294dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="24dp"
         android:text="little history"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="294dp" />
+        app:layout_constraintBottom_toTopOf="@+id/tvDiscriptionDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="365dp"
-        android:layout_height="132dp"
+        android:id="@+id/tvDiscriptionDetails"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="51dp"
         android:text="Discription"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="357dp" />
+        app:layout_constraintBottom_toTopOf="@+id/tvFinalInfoDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHistoryDetails" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="384dp"
-        android:layout_height="48dp"
+        android:id="@+id/tvFinalInfoDetails"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="263dp"
         android:text="Final Info"
         android:textColor="@color/black"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="540dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiscriptionDetails" />
 
     <Button
         android:id="@+id/button2"
@@ -87,7 +103,7 @@
         android:text="WhatsApp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFinalInfoDetails" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -98,7 +114,7 @@
         android:layout_marginBottom="124dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tvFinalInfoDetails"
         app:srcCompat="@drawable/whatswhats" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
