@@ -14,6 +14,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AllPartsActivity extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class AllPartsActivity extends AppCompatActivity {
         AdapterPart adapter;
         FirebaseServices fbs;
         ArrayList<Part> parts;
+        MyCallback myCallback;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,15 @@ public class AllPartsActivity extends AppCompatActivity {
             fbs = FirebaseServices.getInstance();
             parts = new ArrayList<Part>();
             readData();
+            myCallback = new MyCallback() {
+                @Override
+                public void onCallback(List<Part> restsList) {
+                    RecyclerView recyclerView = findViewById(R.id.rvAllParts);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    adapter = new AdapterPart(getApplicationContext(), parts);
+                    recyclerView.setAdapter(adapter);
+                }
+            };
 
             // set up the RecyclerView
             RecyclerView recyclerView = findViewById(R.id.rvAllParts);
@@ -49,6 +60,8 @@ public class AllPartsActivity extends AppCompatActivity {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     parts.add(document.toObject(Part.class));
                                 }
+                                myCallback.onCallback(parts);
+
                             } else {
                                 Log.e("AllPartActivity: readData()", "Error getting documents.", task.getException());
                             }

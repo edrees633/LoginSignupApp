@@ -1,60 +1,39 @@
 package com.example.loginsignupapp;
 
+import java.io.Serializable;
+
 enum psCategory
 {
     Turbo, Supercharger, Intake, Exhaust
 }
 
-public class Part {
-    private int id;
-    private int brand;
-    private int size;
-    private int modelYear;
+public class Part implements Serializable {
+    private int name;
+    private int description;
+    private int history;
+    private int finalInfo;
     private String photo;
 
 
     public Part(int parseInt1, int i, int parseInt, int anInt, int i1, psCategory psCategory) {
     }
 
-    public Part(int id, int brand, int size, int modelYear, String photo) {
-        this.id = id;
-        this.brand = brand;
-        this.size = size;
-        this.modelYear = modelYear;
+
+
+    public int getId() {
+        return name;
+    }
+
+    public Part(int name, int description, int history, int finalInfo, int id, int brand, int size, int modelYear, String photo) {
+        this.name = name;
+        this.description = description;
+        this.history = history;
+        this.finalInfo = finalInfo;
+
         this.photo = photo;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getBrand() {
-        return brand;
-    }
-
-    public void setBrand(int brand) {
-        this.brand = brand;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getModelYear() {
-        return modelYear;
-    }
-
-    public void setModelYear(int modelYear) {
-        this.modelYear = modelYear;
-    }
 
     public String getPhoto() {
         return photo;
@@ -64,15 +43,48 @@ public class Part {
         this.photo = photo;
     }
 
+    public int getName() {
+        return name;
+    }
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    public int getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return "Part{" +
-                "id=" + id +
-                ", brand=" + brand +
-                ", size=" + size +
-                ", modelYear=" + modelYear +
+                "name=" + name +
+                ", description=" + description +
+                ", history=" + history +
+                ", finalInfo=" + finalInfo +
+
                 ", photo='" + photo + '\'' +
                 '}';
+    }
+
+    public void setDiscreption(int discreption) {
+        this.description = discreption;
+    }
+
+    public int getHistory() {
+        return history;
+    }
+
+    public void setHistory(int history) {
+        this.history = history;
+    }
+
+    public int getFinalInfo() {
+        return finalInfo;
+    }
+
+    public void setFinalInfo(int finalInfo) {
+        this.finalInfo = finalInfo;
     }
 
 }
