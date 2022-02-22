@@ -3,6 +3,7 @@ package com.example.loginsignupapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -76,12 +77,14 @@ public void signup(View view){
 
 
         // TODO: 3- Check username and password with Firebase Authentication
-        auth.signInWithEmailAndPassword(username,password)
+        auth.createUserWithEmailAndPassword(username,password)
         .addOnCompleteListener(this,new OnCompleteListener<AuthResult>(){
 @Override
 public void onComplete(@NonNull Task<AuthResult> task){
         if(task.isSuccessful()){
         // TODO: commands if successful
+                Intent i = new Intent(SignupActivity.this, AllPartsActivity.class);
+                startActivity(i);
         }else{
 
 
