@@ -31,8 +31,7 @@ import java.util.UUID;
 
 import io.grpc.Context;
 
-public class
-AddNewPart extends AppCompatActivity {
+public class AddNewPart extends AppCompatActivity {
     private EditText etId, etBrand, etAddSize, etAddModelYear;
     private Spinner spPartCategorey;
     private ImageView ivPhoto;
